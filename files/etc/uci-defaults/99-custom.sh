@@ -7,9 +7,9 @@ echo "Starting 99-custom.sh at $(date)" >> $LOGFILE
 uci set firewall.@zone[1].input='ACCEPT'
 
 # 设置主机名映射，解决安卓原生 TV 无法联网的问题
-uci add dhcp domain
-uci set "dhcp.@domain[-1].name=time.android.com"
-uci set "dhcp.@domain[-1].ip=203.107.6.88"
+#uci add dhcp domain
+#uci set "dhcp.@domain[-1].name=time.android.com"
+#uci set "dhcp.@domain[-1].ip=203.107.6.88"
 
 # 检查配置文件pppoe-settings是否存在 该文件由build.sh动态生成
 SETTINGS_FILE="/etc/config/pppoe-settings"
@@ -68,7 +68,7 @@ elif [ "$count" -gt 1 ]; then
       echo "ports of device 'br-lan' are update." >> $LOGFILE
    fi
    # LAN口设置静态IP
-   uci set network.lan.proto='static'
+   uci set network.lan.proto='dhcp'
    # 多网口设备 支持修改为别的ip地址
    uci set network.lan.ipaddr='192.168.100.1'
    uci set network.lan.netmask='255.255.255.0'
@@ -101,7 +101,7 @@ uci commit
 
 # 设置编译作者信息
 FILE_PATH="/etc/openwrt_release"
-NEW_DESCRIPTION="Compiled by wukongdaily"
+NEW_DESCRIPTION="Compiled by BG5CGQ"
 sed -i "s/DISTRIB_DESCRIPTION='[^']*'/DISTRIB_DESCRIPTION='$NEW_DESCRIPTION'/" "$FILE_PATH"
 
 exit 0
